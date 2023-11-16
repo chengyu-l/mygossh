@@ -1,7 +1,7 @@
 package web
 
 import (
-	"github.com/andesli/gossh/auth"
+	"github.com/andesli/mygossh/auth"
 )
 
 type WebDriver struct {

@@ -1,4 +1,4 @@
-// Copyright 2018 github.com/andesli/gossh Author. All Rights Reserved.
+// Copyright 2018 github.com/andesli/mygossh Author. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,15 +18,15 @@ package run
 
 import (
 	"fmt"
-	"github.com/andesli/gossh/machine"
-	"github.com/andesli/gossh/output"
+	"github.com/andesli/mygossh/machine"
+	"github.com/andesli/mygossh/output"
 	//	"net"
 	//	"strings"
 	//"context"
 	"errors"
-	"github.com/andesli/gossh/config"
-	"github.com/andesli/gossh/logs"
-	//	"github.com/andesli/gossh/tools"
+	"github.com/andesli/mygossh/config"
+	"github.com/andesli/mygossh/logs"
+	//	"github.com/andesli/mygossh/tools"
 	"path/filepath"
 	"sync"
 )
@@ -59,7 +59,7 @@ func SingleRun(host, cmd string, cu *CommonUser, force bool, timeout int) {
 	output.Print(r)
 }
 
-//func ServersRun(cmd string, cu *CommonUser, wt *sync.WaitGroup, crs chan machine.Result, ipFile string, ccons chan struct{}) {
+// func ServersRun(cmd string, cu *CommonUser, wt *sync.WaitGroup, crs chan machine.Result, ipFile string, ccons chan struct{}) {
 func ServersRun(cmd string, cu *CommonUser, wt *sync.WaitGroup, crs chan machine.Result, ipFile string, ccons chan struct{}, safe bool, timeout int) {
 	hosts, err := parseIpfile(ipFile, cu)
 	if err != nil {
@@ -119,7 +119,7 @@ func SinglePush(ip, src, dst string, cu *CommonUser, f bool, timeout int) {
 	output.Print(rs)
 }
 
-//push file or dir to remote servers
+// push file or dir to remote servers
 func ServersPush(src, dst string, cu *CommonUser, ipFile string, wt *sync.WaitGroup, ccons chan struct{}, crs chan machine.Result, timeout int) {
 	hosts, err := parseIpfile(ipFile, cu)
 	if err != nil {
@@ -168,7 +168,7 @@ func ServersPull(src, dst string, cu *CommonUser, ipFile string, force bool) {
 	}
 }
 
-//common logic
+// common logic
 func parseIpfile(ipFile string, cu *CommonUser) ([]config.Host, error) {
 	hosts, err := config.ParseIps(ipFile, cu.encflag)
 	if err != nil {

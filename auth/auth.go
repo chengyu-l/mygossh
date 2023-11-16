@@ -1,4 +1,4 @@
-// Copyright 2018 github.com/andesli/gossh Author. All Rights Reserved.
+// Copyright 2018 github.com/andesli/mygossh Author. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package auth
 
 import (
 	"errors"
-	"github.com/andesli/gossh/auth/driver"
+	"github.com/andesli/mygossh/auth/driver"
 	"sort"
 	"sync"
 )
@@ -28,7 +28,7 @@ var (
 	drivers   = make(map[string]driver.GetPassworder)
 )
 
-//Register Password Source Driver
+// Register Password Source Driver
 func Register(name string, d driver.GetPassworder) {
 	driversMu.Lock()
 	defer driversMu.Unlock()
@@ -42,7 +42,7 @@ func Register(name string, d driver.GetPassworder) {
 	drivers[name] = d
 }
 
-//List Password Source Drivers
+// List Password Source Drivers
 func Drivers() []string {
 	driversMu.RLock()
 	defer driversMu.RUnlock()

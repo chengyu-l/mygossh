@@ -10,3 +10,5 @@ passtool
 #other rules 
 #!bin/gossh
 #!bin/passtool
+.idea
+bin/*

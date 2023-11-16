@@ -1,4 +1,4 @@
-// Copyright 2018 github.com/andesli/gossh Author. All Rights Reserved.
+// Copyright 2018 github.com/andesli/mygossh Author. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,13 +19,14 @@ package machine
 import (
 	"errors"
 	"fmt"
-	"github.com/andesli/gossh/auth"
-	_ "github.com/andesli/gossh/auth/db"
+	"github.com/andesli/mygossh/auth"
+	//_ "github.com/andesli/mygossh/auth/db"
+	_ "github.com/andesli/mygossh/auth/local_file"
 	"golang.org/x/crypto/ssh"
-	//_ "github.com/andesli/gossh/auth/web"
-	"github.com/andesli/gossh/logs"
-	"github.com/andesli/gossh/scp"
-	"github.com/andesli/gossh/tools"
+	//_ "github.com/andesli/mygossh/auth/web"
+	"github.com/andesli/mygossh/logs"
+	"github.com/andesli/mygossh/scp"
+	"github.com/andesli/mygossh/tools"
 	"io"
 	"net"
 	"os"
@@ -37,8 +38,9 @@ import (
 )
 
 var (
-	PASSWORD_SOURCE = "db"
+	//PASSWORD_SOURCE = "db"
 	//PASSWORD_SOURCE   = "web"
+	PASSWORD_SOURCE = "local_file"
 
 	NO_PASSWORD = "GET PASSWORD ERROR\n"
 
@@ -143,8 +145,8 @@ func NewScp(src, dst string) ScpConfig {
 }
 */
 
-//query password from password plugin
-//PASSWORD_SOURCE: db|web
+// query password from password plugin
+// PASSWORD_SOURCE: db|web
 func (server *Server) SetPsw() {
 	psw, err := auth.GetPassword(PASSWORD_SOURCE, server.Ip, server.User)
 	if err != nil {
@@ -154,7 +156,7 @@ func (server *Server) SetPsw() {
 	server.Psw = psw
 }
 
-//run command for parallel
+// run command for parallel
 func (server *Server) PRunCmd(crs chan Result) {
 	rs := server.SRunCmd()
 	crs <- rs
@@ -165,7 +167,7 @@ func (s *Server) SetCmd(cmd string) {
 	s.Cmd = cmd
 }
 
-//run command in sequence
+// run command in sequence
 func (server *Server) RunCmd() (result string, err error) {
 	if server.Psw == NO_PASSWORD {
 		return NO_PASSWORD, nil
@@ -190,7 +192,7 @@ func (server *Server) RunCmd() (result string, err error) {
 	return string(bs), nil
 }
 
-//run command in sequence
+// run command in sequence
 func (server *Server) SRunCmd() Result {
 	rs := Result{
 		Ip:  server.Ip,
@@ -226,13 +228,13 @@ func (server *Server) SRunCmd() Result {
 	return rs
 }
 
-//execute a single command on remote server
+// execute a single command on remote server
 func (server *Server) checkRemoteFile() (result string) {
 	re, _ := server.RunCmd()
 	return re
 }
 
-//PRunScp() can transport  file or path to remote host
+// PRunScp() can transport  file or path to remote host
 func (server *Server) PRunScp(crs chan Result) {
 	cmd := "push " + server.FileName + " to " + server.Ip + ":" + server.RemotePath
 	rs := Result{
@@ -291,7 +293,7 @@ func (server *Server) RunScpDir() (err error) {
 	return err
 }
 
-//pull file from remote to local server
+// pull file from remote to local server
 func (server *Server) PullScp() (err error) {
 
 	//判断远程源文件情况
@@ -355,7 +357,7 @@ func (server *Server) PullScp() (err error) {
 	return err
 }
 
-//RunScp1() only can transport  file to remote host
+// RunScp1() only can transport  file to remote host
 func (server *Server) RunScpFile() (result string, err error) {
 	client, err := server.getSshClient()
 	if err != nil {
@@ -458,7 +460,7 @@ func (server *Server) getSshClient() (client *ssh.Client, err error) {
 	return
 }
 
-//create shell script for running on remote server
+// create shell script for running on remote server
 func createShell(file string) string {
 	s1 := "bash << EOF \n"
 	s2 := "if [[ -f " + file + " ]];then \n"

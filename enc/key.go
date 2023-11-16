@@ -1,4 +1,4 @@
-// Copyright 2018 gossh Author. All Rights Reserved.
+// Copyright 2018 mygossh Author. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@ import (
 	"sync"
 )
 
-//aes default key
+// aes default key
 var (
 	Key = []byte("suckdaNaanddf394des239")
 	mu  = &sync.Mutex{}
 )
 
-//key长度为16,多了截取[:16]，少了补'0'
+// key长度为16,多了截取[:16]，少了补'0'
 func SetKey(s []byte) {
 	mu.Lock()
 	defer mu.Unlock()
@@ -44,7 +44,7 @@ func SetKey(s []byte) {
 	copy(Key, s)
 }
 
-//获取key
+// 获取key
 func GetKey() []byte {
 	mu.Lock()
 	defer mu.Unlock()

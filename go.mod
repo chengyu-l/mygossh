@@ -1,4 +1,4 @@
-module github.com/andesli/gossh
+module github.com/andesli/mygossh
 
 go 1.14
 

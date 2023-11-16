@@ -1,4 +1,4 @@
-// Copyright 2018 github.com/andesli/gossh Author. All Rights Reserved.
+// Copyright 2018 github.com/andesli/mygossh Author. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package output
 import (
 	//	"context"
 	"fmt"
-	"github.com/andesli/gossh/machine"
+	"github.com/andesli/mygossh/machine"
 	//	"strings"
 	"sync"
 	"time"
@@ -29,7 +29,7 @@ const (
 	TIMEOUT = 4500
 )
 
-//new print result
+// new print result
 func Print(res machine.Result) {
 	fmt.Printf("ip=%s\n", res.Ip)
 	//index := strings.Index(cmd, ";")
@@ -65,7 +65,7 @@ func PrintResults2(crs chan machine.Result, ls int, wt *sync.WaitGroup, ccons ch
 
 }
 
-//print push file result
+// print push file result
 func PrintPushResult(ip, src, dst string, err error) {
 	fmt.Println("ip=", ip)
 	fmt.Println("command=", "scp "+src+" root@"+ip+":"+dst)
@@ -79,7 +79,7 @@ func PrintPushResult(ip, src, dst string, err error) {
 	fmt.Println("----------------------------------------------------------")
 }
 
-//print pull result
+// print pull result
 func PrintPullResult(ip, src, dst string, err error) {
 	fmt.Println("ip=", ip)
 	fmt.Println("command=", "scp "+" root@"+ip+":"+dst+" "+src)

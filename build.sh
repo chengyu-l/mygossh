@@ -11,7 +11,7 @@ binpath=${workhome}/bin
 
 oss=(linux windows)
 arches=(amd64 386 arm64)
-target=(gossh passtool)
+target=(mygossh mypasstool)
 
 for arch in ${arches[@]};do
 	for os in ${oss[@]};do

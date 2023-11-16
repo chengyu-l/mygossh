@@ -1,4 +1,4 @@
-// Copyright 2018 github.com/andesli/gossh Author. All Rights Reserved.
+// Copyright 2018 github.com/andesli/mygossh Author. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
-	"github.com/andesli/gossh/enc"
+	"github.com/andesli/mygossh/enc"
 	"io"
 	"net"
 	"os"
@@ -42,11 +42,11 @@ type Host struct {
 }
 
 /*
-func main() {
-	ipfile := os.Args[1]
-	iplist, _ := ParseIps(ipfile, true)
-	fmt.Printf("%v\n", iplist)
-}
+	func main() {
+		ipfile := os.Args[1]
+		iplist, _ := ParseIps(ipfile, true)
+		fmt.Printf("%v\n", iplist)
+	}
 */
 func GetIps(h []Host) []string {
 	ips := make([]string, 0)
@@ -192,7 +192,7 @@ func parseLine(s string, eflag bool) (Host, error) {
 	return host, nil
 }
 
-//decrypt password feild
+// decrypt password feild
 func decrypt(pass string, key []byte) ([]byte, error) {
 	skey := key[:16]
 	return enc.AesDecEncode(pass, skey)
